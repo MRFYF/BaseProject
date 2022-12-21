@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cxyfyf.base.mapper.SysDeptMapper">
+    
+    <resultMap type="cn.cxyfyf.base.domain.SysDept" id="sysDeptResult">
+        <result property="id"    column="id"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="ancestors"    column="ancestors"    />
+        <result property="deptName"    column="dept_name"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="leader"    column="leader"    />
+        <result property="phone"    column="phone"    />
+        <result property="email"    column="email"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="sqlAll">
+         a.id, a.parent_id, a.ancestors, a.dept_name, a.order_num, a.leader, a.phone, a.email, a.status, a.del_flag, a.create_by, a.create_time, a.update_by, a.update_time    </sql>
+    <sql id="tableName">
+      sys_dept a
+    </sql>
+
+    <select id="selectSysDeptList" parameterType="cn.cxyfyf.base.domain.SysDept" resultMap="sysDeptResult">
+       select <include refid="sqlAll"/> from <include refid="tableName"/>
+        <where>
+            <if test="param.id != null "> and a.id = #{param.id}</if>
+            <if test="param.parentId != null "> and a.parent_id = #{param.parentId}</if>
+            <if test="param.ancestors != null  and param.ancestors != ''"> and a.ancestors = #{param.ancestors}</if>
+            <if test="param.deptName != null  and param.deptName != ''"> and a.dept_name like concat('%', #{param.deptName}, '%')</if>
+            <if test="param.orderNum != null "> and a.order_num = #{param.orderNum}</if>
+            <if test="param.leader != null  and param.leader != ''"> and a.leader = #{param.leader}</if>
+            <if test="param.phone != null  and param.phone != ''"> and a.phone like concat('%', #{param.phone}, '%')</if>
+            <if test="param.email != null  and param.email != ''"> and a.email like concat('%', #{param.email}, '%')</if>
+            <if test="param.status != null  and param.status != ''"> and a.status = #{param.status}</if>
+            <if test="param.delFlag != null  and param.delFlag != ''"> and a.del_flag = #{param.delFlag}</if>
+            <if test="param.createBy != null  and param.createBy != ''"> and a.create_by = #{param.createBy}</if>
+            <!-- <if test="param.beginCreateTime != null and param.beginCreateTime != '' and param.endCreateTime != null and param.endCreateTime != ''"> and entity.create_time between #{param.beginCreateTime} and #{param.endCreateTime}</if> -->
+            <if test="param.updateBy != null  and param.updateBy != ''"> and a.update_by = #{param.updateBy}</if>
+            <!-- <if test="param.beginUpdateTime != null and param.beginUpdateTime != '' and param.endUpdateTime != null and param.endUpdateTime != ''"> and entity.update_time between #{param.beginUpdateTime} and #{param.endUpdateTime}</if> -->
+        </where>
+    </select>
+
+    <select id="selectListByPage"  parameterType="cn.cxyfyf.base.domain.SysDept" resultMap="sysDeptResult">
+        select <include refid="sqlAll"/> from <include refid="tableName"/>
+        <where>
+            <if test="param.id != null "> and a.id = #{param.id}</if>
+            <if test="param.parentId != null "> and a.parent_id = #{param.parentId}</if>
+            <if test="param.ancestors != null  and param.ancestors != ''"> and a.ancestors = #{param.ancestors}</if>
+            <if test="param.deptName != null  and param.deptName != ''"> and a.dept_name like concat('%', #{param.deptName}, '%')</if>
+            <if test="param.orderNum != null "> and a.order_num = #{param.orderNum}</if>
+            <if test="param.leader != null  and param.leader != ''"> and a.leader = #{param.leader}</if>
+            <if test="param.phone != null  and param.phone != ''"> and a.phone like concat('%', #{param.phone}, '%')</if>
+            <if test="param.email != null  and param.email != ''"> and a.email like concat('%', #{param.email}, '%')</if>
+            <if test="param.status != null  and param.status != ''"> and a.status = #{param.status}</if>
+            <if test="param.delFlag != null  and param.delFlag != ''"> and a.del_flag = #{param.delFlag}</if>
+            <if test="param.createBy != null  and param.createBy != ''"> and a.create_by = #{param.createBy}</if>
+            <!-- <if test="param.beginCreateTime != null and param.beginCreateTime != '' and param.endCreateTime != null and param.endCreateTime != ''"> and entity.create_time between #{param.beginCreateTime} and #{param.endCreateTime}</if> -->
+            <if test="param.updateBy != null  and param.updateBy != ''"> and a.update_by = #{param.updateBy}</if>
+            <!-- <if test="param.beginUpdateTime != null and param.beginUpdateTime != '' and param.endUpdateTime != null and param.endUpdateTime != ''"> and entity.update_time between #{param.beginUpdateTime} and #{param.endUpdateTime}</if> -->
+        </where>
+    </select>
+
+</mapper>
